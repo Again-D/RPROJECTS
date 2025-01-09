@@ -1,0 +1,29 @@
+# ANOVA 차이 분석
+# 필요한 패키지 로드
+library(readxl)
+library(ggplot2)
+library(car)
+
+# 엑셀 파일 읽기
+file_path <- "05_MRI_FA_P.xlsx"
+data <- read_excel(file_path)
+
+# 데이터 구조 확인
+head(data)
+summary(data)
+
+# 데이터를 하나로 묶고 그룹 변수를 만듭니다.
+long_data <- data.frame(
+  value = c(data$Pre_contrast, data$Post_contrast),
+  group = factor(rep(c("Pre", "Post"), each = nrow(data)))
+)
+
+# ANOVA 실행
+anova_result <- aov(value ~ group, data = long_data)
+summary(anova_result)
+
+# 박스플롯 그리기
+ggplot(long_data, aes(x = group, y = value, fill = group)) +
+  geom_boxplot() +
+  labs(title = "Pre_contrast vs Post_contrast", x = "Group", y = "Value") +
+  theme_minimal()

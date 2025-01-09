@@ -1,0 +1,14 @@
+# One Way ANOVA - Kruskal-Wallis
+
+library(readxl)
+
+data <- read_xlsx("06_SatCulture.xlsx")
+
+# Kruskall-Wallis
+kruskal.test(data$satisfaction ~ data$Major)
+kruskal.test(satisfaction ~ Major, data=data)
+
+# Post hoc
+library(DescTools)
+DunnTest(satisfaction ~ Major, data=data)
+

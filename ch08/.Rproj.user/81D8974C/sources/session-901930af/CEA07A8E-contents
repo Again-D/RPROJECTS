@@ -1,0 +1,30 @@
+# Simple Linear Regression(단순 선형 회귀 분석)
+
+install.packages("openxlsx")
+
+# 파일 읽기
+library(openxlsx)
+dt <- read.xlsx("08_SimpleRegression_Engineering_01.xlsx") 
+dt
+plot(dt)
+
+# 선형 회귀의 기본 함수
+lm(dt$CS~dt$BC)
+lm(CS~BC, data=dt)
+
+# 실제로 회귀 결과를 변수에 저장합니다.
+reg1 <- lm(CS~BC, data=dt)
+
+summary(reg1)
+anova(reg1) # 회귀선 = 0인지 여부 테스트
+coef(reg1) # 계수만 표시
+
+# 가정이 만족되는지 확인
+par(mfrow=c(2,2))
+plot(reg1)
+
+library(car)
+dw <- residuals(reg1)
+dw
+durbinWatsonTest(dw)
+plot(dw)

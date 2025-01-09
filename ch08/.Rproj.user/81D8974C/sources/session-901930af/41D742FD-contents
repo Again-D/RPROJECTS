@@ -1,0 +1,18 @@
+library(readxl)
+
+data <- read_xlsx("05_MRI_FA_P.xlsx")
+
+# Paired Samples T-test
+t.test(data$Pre_contrast, data$Post_contrast, paired=T)
+
+data1 <- 
+data2 <- 
+
+## or can utilise one-sample t-test
+diff <- data1 - data2
+t.test(diff)
+t.test(diff, mu=0)
+
+# 01_MRI_FA_NP.sav
+
+wilcox.test(data$Pre_contrast, data$Post_contrast, paired=TRUE, correct=FALSE)

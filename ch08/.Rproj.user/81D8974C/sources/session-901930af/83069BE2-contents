@@ -1,0 +1,22 @@
+# Two Way ANOVA
+
+library(readxl)
+
+sales <- read_xlsx("06_ANOVA02.xlsx")
+
+# ANOVA
+ano22 <- aov(Sales~Promotio+Region+Promotio*Region, data=sales)
+summary(ano22)
+
+# Plot
+interaction.plot(sales$Promotio, sales$Region, sales$Sales)
+interaction.plot(sales$Region, sales$Promotio, sales$Sales)
+
+head(sales)
+bartlett.test(sales$Sales ~ sales$Promotio)
+bartlett.test(sales$Sales ~ sales$Region)
+
+# 이원분산분석
+ano2 <- aov(Sales~Promotio*Region, data=sales)
+summary(ano2)
+

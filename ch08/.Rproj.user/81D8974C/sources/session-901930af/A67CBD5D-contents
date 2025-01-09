@@ -1,0 +1,50 @@
+# One Way ANOVA
+
+library(readxl)
+
+rr <- read_xlsx("06_ANOVA01.xlsx")
+rr
+
+rr1 <- subset(rr, Drug==1)
+rr2 <- subset(rr, Drug==2)
+rr3 <- subset(rr, Drug==3)
+rr4 <- subset(rr, Drug==4)
+
+shapiro.test(rr1$BPressure)
+shapiro.test(rr2$BPressure)
+shapiro.test(rr3$BPressure)
+shapiro.test(rr4$BPressure)
+
+library(car)
+leveneTest(BPressure~Drug,rr)
+leveneTest(rr$BPressure, rr$Drug)
+
+rr$Drug <- as.factor(rr$Drug)
+ano1 <- aov(BPressure~Drug, data=rr)
+ano1
+summary(ano1)
+
+#Post-hoc Test (1) : Using DescTools 
+install.packages("DescTools")
+library(DescTools)
+
+PostHocTest(ano1, method="hsd")
+PostHocTest(ano1, method="duncan")
+PostHocTest(ano1, method="scheffe")
+PostHocTest(ano1, method="bonferroni")
+DunnettTest(rr$BPressure,rr$Drug)
+
+
+#Post-hoc Test (2) : Using rstatix 
+install.packages("rstatix")
+library(rstatix)
+
+tukey_hsd(rr, BPressure~Drug, conf.level=0.05) #conf.level = can be omitted
+games_howell_test(rr,BPressure~Drug)
+
+oneway.test(BPressure~Drug, data=rr, var.equal=T)
+oneway.test(BPressure~Drug, data=rr, var.equal=F)
+
+games_howell_test(BPressure~Drug, data=rr)
+
+

@@ -1,0 +1,21 @@
+# Correlation Analysis(상관관계 분석)
+
+library(readxl)
+
+SUV <- read_xlsx("07_Correlation_Example.xlsx")
+SUV
+plot(SUV)
+
+
+# Pearson Correlation 
+cor(SUV)
+cor(SUV$Y, SUV$X)
+cor.test(SUV$Y, SUV$X, method="pearson")
+cor.test(SUV$Y, SUV$X, method="spearman")
+cor.test(SUV$Y, SUV$X, method="kendall")
+
+emp <- read_xlsx("07_Employee_Data.xlsx")
+emp
+plot(emp$id, emp$salary)
+
+cor(emp$salary, emp$id)

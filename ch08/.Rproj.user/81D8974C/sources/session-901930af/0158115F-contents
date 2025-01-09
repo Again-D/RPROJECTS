@@ -1,0 +1,18 @@
+# Independent Samples T-Test
+
+# 03_evrange_p.xlsx
+
+library(readxl)
+
+data <- read_xlsx("03_evrange_p.xlsx")
+
+# T-test
+# Equal variances assumed = t-test
+t.test(data$Range~data$Model, var.equal=TRUE)
+
+# Equal variances NOT assumed = welch’s t-test
+t.test(data$Range~data$Model, var.equal=FALSE)
+
+# Nonparametric <Mann-Whitney U-Test>
+evmile <- read_xlsx("03_evrange_np.xlsx")
+shapiro.test(evmile$Range)

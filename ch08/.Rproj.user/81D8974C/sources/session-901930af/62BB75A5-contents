@@ -1,0 +1,25 @@
+# 세 집단 이상의 차이 분석
+library(readxl)
+
+rr1 <- read_xlsx("06_SatCulture.xlsx")
+
+#등분산성 검정, 산업분야  3개 이상의 수준이므로 var.test 대신 bartlett.test 사용
+bartlett.test(rr1$Major ~ rr1$Industry)
+#만일 등분산이 아니라면 Welch’s ANOVA 수행 (이는 각자 인터넷 검색)
+
+ano1 <- aov(rr1$Major ~ rr1$Industry, data=rr1)
+summary(ano1)
+
+#Duncan.test로 사후분석
+install.packages("agricolae")
+library(agricolae)
+duncan.test(ano1, "rr1$Industry", alpha=0.05, console=T)
+
+#gplot으로 그림 그려 보기
+install.packages("gplots")
+library(gplots)
+plotmeans(rr1$Major ~ rr1$Industry, ci.label=T, mean.label=T)
+
+# 이원분산분석
+ano2 <- aov(rr1$Major ~ rr1$Industry*rr1$전공)
+summary(ano2)

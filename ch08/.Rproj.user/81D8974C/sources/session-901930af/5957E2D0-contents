@@ -1,0 +1,27 @@
+# One Sample T-test
+
+library(readxl)
+
+data <- read_xlsx("03_evrange_p.xlsx")
+t.test(data$Range, mu=200)
+
+# One-sample t-test with alternatives
+t.test(data$Range, mu=200, alternative="two.sided")
+t.test(data$Range, mu=200, alternative="greater")
+t.test(data$Range, mu=200, alternative="less")
+
+
+# install.packages("haven")
+# library(haven)
+# data <- read_sav("01_evrange_np.sav")
+
+# Nonparametric analysis <Wilcoxon Signed Rank Test>
+# 01_evrange_np.sav
+# Normality test (Shapiro-Wilk) - nonparametric 
+# Wilcoxon Signed Rank Test
+
+data <- read_xlsx("03_evrange_np.xlsx")
+wilcox.test(data$Range, mu=200, correct=FALSE)
+wilcox.test(data$Range, mu=200, correct=FALSE, alternative="two.sided")
+wilcox.test(data$Range, mu=200, correct=FALSE, alternative="greater")
+wilcox.test(data$Range, mu=200, correct=FALSE, alternative="less")
