@@ -421,6 +421,7 @@ result <- foreach(i = 1:5, .combine = c) %do% {
 result <- foreach(i = 1:5, .combine = 'list') %do% {
   list(i^2)
 }
+<<<<<<< HEAD
 #3. data.frame(rbind)
 result <- foreach(i = 1:5, .combine = rbind) %do% {
   data.frame(Value = i^2)
@@ -431,3 +432,6 @@ print(result)
 # doMC 패키지 : 병렬 처리를 위한 백엔드로, 특히 Unix 계열 시스템(Linux 및 macOS)에서 사용할 수 있는 멀티코어 병렬 처리를 지원
 # doMC를 사용하면 여러 프로세스를 동시에 실행하여 작업을 병렬화할 수 있으며, 이는 반복 작업의 성능을 크게 향상
 # doMC 패키지는 Windows에서는 작동하지 않습니다.
+=======
+#3. data.frame(rbind)
+>>>>>>> 4dde168594afe4ef2204dbb31c3432db7d5d5d59
